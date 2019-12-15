@@ -1,0 +1,8 @@
+{
+	"BuildId": "5660361",
+	"Modules": 
+	{
+		"LineNotify4Unreal": "UE4Editor-LineNotify4Unreal.dll",
+		"LineNotify4UnrealEd": "UE4Editor-LineNotify4UnrealEd.dll"
+	}
+}

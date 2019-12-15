@@ -1,0 +1,28 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "LINE Notify 4 Unreal",
+	"Description": "Add a node to send messages, stamps, images and textures using LINE Notify.In addition, a function to notify at the end of compilation and at the end of light build is also implemented.",
+	"Category": "Notifications",
+	"CreatedBy": "Naotsun",
+	"CreatedByURL": "",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"CanContainContent": true,
+	"IsBetaVersion": false,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "LineNotify4Unreal",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		},
+		{
+			"Name": "LineNotify4UnrealEd",
+			"Type": "Developer",
+			"LoadingPhase": "PreDefault"
+		}
+	]
+}
