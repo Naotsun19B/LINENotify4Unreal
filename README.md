@@ -10,11 +10,8 @@ https://notify-bot.line.me/ja/
 
 # 動作環境
 Windows環境でのみ動作確認をしています。
-
-推奨 : UE4.22  
-確認 : UE4.20 ～ UE4.23  
-
-UE4.22以外のバージョンでのSendMessageTextureノードの動作が不安定です。
+ 
+UE4.20 ～ UE4.24  
 
 # ブループリントノードの使い方  
 **全てのSend~ノードのAccess Tokenには取得したアクセストークンを指定してください。**  
