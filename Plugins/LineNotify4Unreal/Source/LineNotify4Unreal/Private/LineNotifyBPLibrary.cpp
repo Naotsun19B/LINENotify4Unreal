@@ -10,6 +10,14 @@
 #include "Misc/DateTime.h"
 #include "Misc/ConfigCacheIni.h"
 
+struct FReadSurfaceContext
+{
+	FTexture2DRHIRef Texture;
+	TArray<FColor>* OutData;
+	FIntRect Rect;
+	FReadSurfaceDataFlags Flags;
+};
+
 FDelegateHandle ULineNotifyBPLibrary::OnScreenshotCapturedHandle;
 FString ULineNotifyBPLibrary::TempAccessToken;
 FString ULineNotifyBPLibrary::TempMessage;
@@ -76,32 +84,36 @@ void ULineNotifyBPLibrary::SendMessageAndTexture(const FString& AccessToken, con
 		UE_LOG(LineNotify4Unreal, Warning, TEXT("No texture is specified for sending"));
 		return;
 	}
-
-	FString FileName = TEXT("Texture_") + FDateTime::Now().ToString() + TEXT(".png");
-	FString FilePath = FPaths::ConvertRelativePathToFull(FPaths::Combine(FPaths::ProjectSavedDir(), FileName));
-
-	Texture->UpdateResource();
-	FTexture2DMipMap* MM = &Texture->PlatformData->Mips[0];
-
+	
 	TArray<FColor> Bitmap;
-	int Width = MM->SizeX;
-	int Height = MM->SizeY;
+	FTexture2DResource* Resource = (FTexture2DResource*)Texture->Resource;
+	FTexture2DRHIRef TextureRHI = Resource->GetTexture2DRHI();
 
-	Bitmap.InsertZeroed(0, Width * Height);
-
-	FByteBulkData* RawImageData = &MM->BulkData;
-
-	FColor* FormatedImageData = static_cast<FColor*>(RawImageData->Lock(LOCK_READ_ONLY));
-
-	for (int i = 0; i < (Width * Height); ++i)
+	int Width = TextureRHI->GetSizeX();
+	int Height = TextureRHI->GetSizeY();
+	FReadSurfaceContext ReadSurfaceContext =
 	{
-		Bitmap[i] = FormatedImageData[i];
-		Bitmap[i].A = 255;
-	}
+		TextureRHI,
+		&Bitmap,
+		FIntRect(0, 0, Width, Height),
+		FReadSurfaceDataFlags(RCM_UNorm, CubeFace_MAX)
+	};
 
-	RawImageData->Unlock();
+	ENQUEUE_UNIQUE_RENDER_COMMAND_ONEPARAMETER(
+		ReadSurfaceCommand,
+		FReadSurfaceContext, Context, ReadSurfaceContext,
+		{
+			RHICmdList.ReadSurfaceData(
+				Context.Texture,
+				Context.Rect,
+				*Context.OutData,
+				Context.Flags
+			);
+		});
+	FlushRenderingCommands();
 
 	TArray<uint8> ImageData = ConvertBitmapToPngImage(Width, Height, Bitmap);
+	FString FileName = TEXT("Texture_") + FDateTime::Now().ToString() + TEXT(".png");
 
 	TArray<FLineNotifyContent> Contents;
 	Contents.Add(FLineNotifyContent(EContentType::CT_Text, Message));
@@ -147,7 +159,7 @@ void ULineNotifyBPLibrary::OnScreenshotCaptured(int32 Width, int32 Height, const
 
 	if (TempSaveScreenshotLocally)
 	{
-		FString FilePath = FPaths::ConvertRelativePathToFull(FPaths::Combine(FPaths::ProjectSavedDir(), TEXT("Screenshots"), TEXT("LineNotify4Unreal"), FileName));
+		FString FilePath = FPaths::ConvertRelativePathToFull(FPaths::Combine(FPaths::GameSavedDir(), TEXT("Screenshots"), TEXT("LineNotify4Unreal"), FileName));
 		if (!FFileHelper::SaveArrayToFile(ImageData, *FilePath))
 		{
 			UE_LOG(LineNotify4Unreal, Warning, TEXT("Failed to save screenshot ..."));

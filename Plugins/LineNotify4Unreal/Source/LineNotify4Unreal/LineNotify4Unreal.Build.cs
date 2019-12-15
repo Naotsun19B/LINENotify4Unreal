@@ -28,7 +28,9 @@ public class LineNotify4Unreal : ModuleRules
 				"SlateCore",
                 "ImageWrapper",
                 "HTTP",
-                "Json"
+                "Json",
+                "RHI",
+                "RenderCore"
                 // ... add private dependencies that you statically link with here ...	
             }
 			);
