@@ -78,28 +78,28 @@ void FLineNotify4UnrealEdModule::OnCompileFinished(const FString& LogDump, EComp
 	switch (CompilationResult)
 	{
 	case ECompilationResult::Succeeded:
-		Message = Settings->CompileSucceeded;
+		Message += Settings->CompileSucceeded;
 		break;
 	case ECompilationResult::Canceled:
-		Message = Settings->CompileCanceled;
+		Message += Settings->CompileCanceled;
 		break;
 	case ECompilationResult::UpToDate:
-		Message = Settings->CompileUpToDate;
+		Message += Settings->CompileUpToDate;
 		break;
 	case ECompilationResult::CrashOrAssert:
-		Message = Settings->CompileCrashOrAssert;
+		Message += Settings->CompileCrashOrAssert;
 		break;
 	case ECompilationResult::FailedDueToHeaderChange:
-		Message = Settings->CompileFailedDueToHeaderChange;
+		Message += Settings->CompileFailedDueToHeaderChange;
 		break;
 	case ECompilationResult::OtherCompilationError:
-		Message = Settings->CompileOtherCompilationError;
+		Message += Settings->CompileOtherCompilationError;
 		break;
 	case ECompilationResult::Unsupported:
-		Message = Settings->CompileUnsupported;
+		Message += Settings->CompileUnsupported;
 		break;
 	default:
-		Message = Settings->CompileUnknown;
+		Message += Settings->CompileUnknown;
 		break;
 	}
 

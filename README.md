@@ -55,7 +55,7 @@ Save Screen ShotLocallyは撮ったスクリーンショットを保存するか
 プロジェクト設定のAccessTokenに設定されているアクセストークンを取得します。
 
 # プロジェクト設定  
-![ProjectSettings](https://user-images.githubusercontent.com/51815450/71088574-14973200-21e2-11ea-917e-c7d99026027d.PNG)
+![ProjectSettings](https://user-images.githubusercontent.com/51815450/71089441-35f91d80-21e4-11ea-80fc-ccac629767c5.PNG)
 
 Access Token - コンパイル終了時とライトビルド終了時に行われる通知で使用するアクセストークンを指定してください。  
 
