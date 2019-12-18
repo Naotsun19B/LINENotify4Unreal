@@ -8,6 +8,7 @@
 #include "Engine/GameViewportClient.h"
 #include "Misc/HotReloadInterface.h"
 #include "Misc/DateTime.h"
+#include "Misc/App.h"
 
 #define LOCTEXT_NAMESPACE "FLineNotify4UnrealEdModule"
 
@@ -62,12 +63,18 @@ void FLineNotify4UnrealEdModule::OnCompileFinished(const FString& LogDump, EComp
 {
 	const ULineNotifySettings* Settings = GetDefault<ULineNotifySettings>();
 
-	if (!Settings->UseCompilationNotification)
+	if (!Settings->bUseCompilationNotification)
 	{
 		return;
 	}
 
 	FString Message;
+
+	if (Settings->bInsertProjectNameInCompilationNotification)
+	{
+		Message += TEXT("<") + FString(FApp::GetProjectName(), 64) + TEXT("> ");
+	}
+
 	switch (CompilationResult)
 	{
 	case ECompilationResult::Succeeded:
@@ -96,7 +103,7 @@ void FLineNotify4UnrealEdModule::OnCompileFinished(const FString& LogDump, EComp
 		break;
 	}
 
-	if (Settings->SendDumpedLogs)
+	if (Settings->bSendDumpedLogs)
 	{
 		Message += TEXT("\n\n[Output Log]\n") + LogDump;
 	}
@@ -104,7 +111,7 @@ void FLineNotify4UnrealEdModule::OnCompileFinished(const FString& LogDump, EComp
 	TArray<FLineNotifyContent> Contents;
 	Contents.Add(FLineNotifyContent(EContentType::CT_Text, Message));
 
-	if (Settings->AddStampToNotification)
+	if (Settings->bAddStampToNotification)
 	{
 		if (CompilationResult == ECompilationResult::Succeeded)
 		{
@@ -125,15 +132,24 @@ void FLineNotify4UnrealEdModule::OnLightBuildSucceeded()
 {
 	const ULineNotifySettings* Settings = GetDefault<ULineNotifySettings>();
 
-	if (!Settings->UseLightBuildNotification)
+	if (!Settings->bUseLightBuildNotification)
 	{
 		return;
 	}
 
-	TArray<FLineNotifyContent> Contents;
-	Contents.Add(FLineNotifyContent(EContentType::CT_Text, Settings->LightBuildSucceeded));
+	FString Message;
 
-	if (Settings->AddStampToNotification)
+	if (Settings->bInsertProjectNameInLightBuildNotification)
+	{
+		Message += TEXT("<") + FString(FApp::GetProjectName(), 64) + TEXT("> ");
+	}
+
+	Message += Settings->LightBuildSucceeded;
+
+	TArray<FLineNotifyContent> Contents;
+	Contents.Add(FLineNotifyContent(EContentType::CT_Text, Message));
+
+	if (Settings->bAddStampToNotification)
 	{
 		Contents.Add(FLineNotifyContent(EContentType::CT_StampPackageID, FString::FromInt(Settings->SucceededStickerPackageID)));
 		Contents.Add(FLineNotifyContent(EContentType::CT_StampID, FString::FromInt(Settings->SucceededStickerID)));
@@ -146,15 +162,24 @@ void FLineNotify4UnrealEdModule::OnLightBuildFailed()
 {
 	const ULineNotifySettings* Settings = GetDefault<ULineNotifySettings>();
 
-	if (!Settings->UseLightBuildNotification)
+	if (!Settings->bUseLightBuildNotification)
 	{
 		return;
 	}
 
-	TArray<FLineNotifyContent> Contents;
-	Contents.Add(FLineNotifyContent(EContentType::CT_Text, Settings->LightBuildFailed));
+	FString Message;
 
-	if (Settings->AddStampToNotification)
+	if (Settings->bInsertProjectNameInLightBuildNotification)
+	{
+		Message += TEXT("<") + FString(FApp::GetProjectName(), 64) + TEXT("> ");
+	}
+
+	Message += Settings->LightBuildFailed;
+
+	TArray<FLineNotifyContent> Contents;
+	Contents.Add(FLineNotifyContent(EContentType::CT_Text, Message));
+
+	if (Settings->bAddStampToNotification)
 	{
 		Contents.Add(FLineNotifyContent(EContentType::CT_StampPackageID, FString::FromInt(Settings->FailedStickerPackageID)));
 		Contents.Add(FLineNotifyContent(EContentType::CT_StampID, FString::FromInt(Settings->FailedStickerID)));

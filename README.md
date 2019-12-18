@@ -1,7 +1,7 @@
 # LINE Notify 4 Unreal
 ![Plugin](https://user-images.githubusercontent.com/51815450/70860404-a6920700-1f64-11ea-8a6a-6b7aa7d25538.PNG)
 
-LINE Notifyを使用してメッセージ、スタンプ、画像、テクスチャを送信するブループリントノードを追加します。  
+LINE Notifyを使用してメッセージ、スタンプ、画像、テクスチャ、スクリーンショットを送信するブループリントノードを追加します。  
 さらに、コンパイル終了時とライトビルド終了時に通知する機能も追加します。  
 
 このプラグインを使用するには事前にLINE Notifyのアクセストークンを取得する必要があります。  
@@ -58,18 +58,20 @@ Save Screen ShotLocallyは撮ったスクリーンショットを保存するか
 プロジェクト設定のAccessTokenに設定されているアクセストークンを取得します。
 
 # プロジェクト設定  
-![ProjectSettings](https://user-images.githubusercontent.com/51815450/70860296-68e0ae80-1f63-11ea-9f89-2bc8e0d3a22d.jpg)
+![ProjectSettings](https://user-images.githubusercontent.com/51815450/71088574-14973200-21e2-11ea-917e-c7d99026027d.PNG)
 
 Access Token - コンパイル終了時とライトビルド終了時に行われる通知で使用するアクセストークンを指定してください。  
 
-Use Complilation Notification - コンパイル終了時に結果を通知するかのフラグです。  
-Send Dumped Logs - コンパイル結果と共にログも送信するかのフラグです。  
-Compilation Result Message - コンパイル結果ごとの送信するメッセージを指定します。  
+**Use Complilation Notification** - コンパイル終了時に結果を通知するかのフラグです。
+**InsertProjectName** - 送信するメッセージの先頭にプロジェクト名を付加するかのフラグです。  
+**Send Dumped Logs** - コンパイル結果と共にログも送信するかのフラグです。  
+**Compilation Result Message** - コンパイル結果ごとの送信するメッセージを指定します。  
 
-Use Light Build Notification - ライトビルド終了時に結果を通知するかのフラグです。  
-Light Build Result Message - ライトビルド結果ごとの送信するメッセージを指定します。  
+**Use Light Build Notification** - ライトビルド終了時に結果を通知するかのフラグです。  
+**InsertProjectName** - 送信するメッセージの先頭にプロジェクト名を付加するかのフラグです。 
+**Light Build Result Message** - ライトビルド結果ごとの送信するメッセージを指定します。  
 
-Add Stamp to Notification - コンパイル終了時とライトビルド終了時の通知にスタンプを付加するかのフラグです。  
-Succeeded - コンパイルとライトビルドが成功した際に送信されるスタンプのSticker Package IDとSticker IDを指定します。  
-Failed - コンパイルとライトビルドが失敗した際に送信されるスタンプのSticker Package IDとSticker IDを指定します。  
+**Add Stamp to Notification** - コンパイル終了時とライトビルド終了時の通知にスタンプを付加するかのフラグです。  
+**Succeeded** - コンパイルとライトビルドが成功した際に送信されるスタンプのSticker Package IDとSticker IDを指定します。  
+**Failed** - コンパイルとライトビルドが失敗した際に送信されるスタンプのSticker Package IDとSticker IDを指定します。  
 

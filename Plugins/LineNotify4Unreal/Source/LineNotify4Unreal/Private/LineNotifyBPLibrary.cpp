@@ -129,7 +129,7 @@ void ULineNotifyBPLibrary::SendMessageAndScreenshot(const FString& AccessToken, 
 	
 	if (bInsertTimeStamp)
 	{
-		TempMessage = TEXT("[") + FDateTime::Now().ToString() + TEXT("] ") + Message;
+		TempMessage = TEXT("<") + FDateTime::Now().ToString() + TEXT("> ") + Message;
 	}
 	else
 	{

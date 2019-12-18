@@ -18,11 +18,15 @@ public:
 	
 	// Use notification when compilation is complete
 	UPROPERTY(EditAnywhere, Category = "CompileNotification", Config = Category)
-	bool UseCompilationNotification;
+	bool bUseCompilationNotification;
+
+	// Whether to add the project name to the compilation result message
+	UPROPERTY(EditAnywhere, Category = "CompileNotification", Config = Category, meta = (EditCondition = "UseCompilationNotification", DisplayName = "InsertProjectName"))
+	bool bInsertProjectNameInCompilationNotification;
 
 	// Send dump log with compilation results
 	UPROPERTY(EditAnywhere, Category = "CompileNotification", Config = Category, meta = (EditCondition = "UseCompilationNotification"))
-	bool SendDumpedLogs;
+	bool bSendDumpedLogs;
 
 	// Compilation succeeded
 	UPROPERTY(EditAnywhere, Category = "CompileNotification|Compilation Result Message", Config = Category, meta = (EditCondition = "UseCompilationNotification", DisplayName = "Succeeded"))
@@ -58,8 +62,12 @@ public:
 
 	// Use notification when light build is complete
 	UPROPERTY(EditAnywhere, Category = "LightBuildNotification", Config = Category)
-	bool UseLightBuildNotification;
+	bool bUseLightBuildNotification;
 	
+	// Whether to add the project name to the light build result message
+	UPROPERTY(EditAnywhere, Category = "LightBuildNotification", Config = Category, meta = (EditCondition = "UseLightBuildNotification", DisplayName = "InsertProjectName"))
+	bool bInsertProjectNameInLightBuildNotification;
+
 	// Message sent when light build is successful
 	UPROPERTY(EditAnywhere, Category = "LightBuildNotification|Light Build Result Message", Config = Category, meta = (EditCondition = "UseLightBuildNotification", DisplayName = "Succeeded"))
 	FString LightBuildSucceeded;
@@ -70,7 +78,7 @@ public:
 
 	// Add a stamp to the notification at the end of compilation and at the end of light build
 	UPROPERTY(EditAnywhere, Category = "Stamp", Config = Category)
-	bool AddStampToNotification;
+	bool bAddStampToNotification;
 	
 	// Package ID of stamp
 	UPROPERTY(EditAnywhere, Category = "Stamp|Succeeded", Config = Category, meta = (EditCondition = "AddStampToNotification", DisplayName = "StickerPackageID"))
