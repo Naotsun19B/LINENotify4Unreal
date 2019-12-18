@@ -57,15 +57,15 @@ Save Screen ShotLocallyは撮ったスクリーンショットを保存するか
 # プロジェクト設定  
 ![ProjectSettings](https://user-images.githubusercontent.com/51815450/71089441-35f91d80-21e4-11ea-80fc-ccac629767c5.PNG)
 
-Access Token - コンパイル終了時とライトビルド終了時に行われる通知で使用するアクセストークンを指定してください。  
+**Access Token** - コンパイル終了時とライトビルド終了時に行われる通知で使用するアクセストークンを指定してください。  
 
-**Use Complilation Notification** - コンパイル終了時に結果を通知するかのフラグです。
-**InsertProjectName** - 送信するメッセージの先頭にプロジェクト名を付加するかのフラグです。  
+**Use Complilation Notification** - コンパイル終了時に結果を通知するかのフラグです。  
+**InsertProjectName** - 送信するメッセージの先頭にプロジェクト名を付加するかのフラグです。    
 **Send Dumped Logs** - コンパイル結果と共にログも送信するかのフラグです。  
 **Compilation Result Message** - コンパイル結果ごとの送信するメッセージを指定します。  
 
 **Use Light Build Notification** - ライトビルド終了時に結果を通知するかのフラグです。  
-**InsertProjectName** - 送信するメッセージの先頭にプロジェクト名を付加するかのフラグです。 
+**InsertProjectName** - 送信するメッセージの先頭にプロジェクト名を付加するかのフラグです。   
 **Light Build Result Message** - ライトビルド結果ごとの送信するメッセージを指定します。  
 
 **Add Stamp to Notification** - コンパイル終了時とライトビルド終了時の通知にスタンプを付加するかのフラグです。  
